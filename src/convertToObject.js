@@ -6,7 +6,20 @@
  * @return {object}
  */
 function convertToObject(sourceString) {
-  // write your code here
+  return sourceString
+    .split(';')
+    .map((arrayItem) => arrayItem.replace('\n', '').trim())
+    .filter((arrayItem) => arrayItem !== '')
+    .reduce((previousObject, styleRuleString) => {
+      const rulePair = styleRuleString
+        .split(':')
+        .map((ruleItem) => ruleItem.trim());
+
+      return {
+        ...previousObject,
+        [rulePair[0]]: rulePair[1],
+      };
+    }, {});
 }
 
 module.exports = convertToObject;
