@@ -8,18 +8,17 @@
 function convertToObject(sourceString) {
   return sourceString
     .split(';')
-    .map((arrayItem) => arrayItem.trim())
+    .map(trimItem)
     .filter((arrayItem) => arrayItem !== '')
-    .reduce((previousObject, styleRuleString) => {
-      const rulePair = styleRuleString
-        .split(':')
-        .map((ruleItem) => ruleItem.trim());
+    .map((styleRuleString) => styleRuleString.split(':').map(trimItem))
+    .reduce(
+      (previousObject, [key, value]) => ({ ...previousObject, [key]: value }),
+      {},
+    );
+}
 
-      return {
-        ...previousObject,
-        [rulePair[0]]: rulePair[1],
-      };
-    }, {});
+function trimItem(item) {
+  return item.trim();
 }
 
 module.exports = convertToObject;
