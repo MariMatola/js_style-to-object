@@ -8,7 +8,7 @@
 function convertToObject(sourceString) {
   return sourceString
     .split(';')
-    .map((arrayItem) => arrayItem.replace('\n', '').trim())
+    .map((arrayItem) => arrayItem.trim())
     .filter((arrayItem) => arrayItem !== '')
     .reduce((previousObject, styleRuleString) => {
       const rulePair = styleRuleString
